@@ -30,8 +30,8 @@
 
 void AnalyzerZemu::Begin(TTree * /*tree*/)
 {
-  filetype=0;
-  IS_DATA=false;
+  filetype=2;
+  IS_DATA=true;
   larks=0;
   produceForest=0;
   muCorrector = new rochcor2012();
@@ -42,7 +42,7 @@ void AnalyzerZemu::Begin(TTree * /*tree*/)
     {
       long a,b;
       cout<<"ddddddddd"<<endl;
-      std::ifstream infile("/uscms_data/d3/nmucia2/dblcountfiles/SMA.txt");
+      std::ifstream infile("/uscms_data/d3/nmucia2/dblcountfiles/SMC.txt");
       if(infile.is_open())
 	{
 	  while (infile>>a>>b)  
@@ -300,6 +300,11 @@ h_delphiem = new TH1D("h_delphiem","phi angle between leps", 50, 0, 3.2);
    h_vertexProbmm = new TH1D("h_vertexProbmm","vertex probability", 80, 0, 4);
    h_vertexProbmm2 = new TH1D("h_vertexProbmm2","vertex probability", 80, 0, 4);
    h_vertexProbee2 = new TH1D("h_vertexProbee2","vertex probability", 80, 0, 4);
+
+
+ h_dptmm1 = new TH1D("h_dptmm1","Difference in pt",50, 0, 50);
+ h_dptee1 = new TH1D("h_dptee1","Difference in pt",50, 0, 50);
+ h_dptem1 = new TH1D("h_dptem1","Difference in pt",50, 0, 50);
 
    h_vertexProbem = new TH1D("h_vertexProbem","vertex probability", 80, 0, 4);
    h_liso1mm = new TH1D("h_liso1mm","liso1 mm", 100, 0.0, 1.0);
@@ -576,6 +581,8 @@ Bool_t AnalyzerZemu::Process(Long64_t entry)
 
 	     	      fill(h_numJetsmm, numberjets);
 		      //double hello= sqrt((l14vector->Px()+l24vector->Px())**2+(l14vector->Py()+l24vector->Py())**2);
+
+		      fill(h_dptmm1, fabs(lep1pt-lep2pt));
 	      
 		        fill(h_ZpTmm,ZpT);
 			fill(h_mETmm, met);
@@ -852,6 +859,7 @@ Bool_t AnalyzerZemu::Process(Long64_t entry)
 			    fill(h_leta2ee, lep2eta);
 			    fill(h_lphi1ee, lep1phi);
 			  
+			    fill(h_dptee1, fabs(lep1pt-lep2pt));
 			   
 			   
 			    fill(h_lphi2ee, lep2phi);
@@ -1018,6 +1026,7 @@ Bool_t AnalyzerZemu::Process(Long64_t entry)
 	   fill(h_leadptem, l14vector->Pt());
 	   fill(h_subptem, l24vector->Pt());
 
+	   fill(h_dptem1, fabs(l14vector->Pt()-l24vector->Pt()));
 
 		       
      //  cout<<"hello"<<endl;
@@ -1237,7 +1246,7 @@ void AnalyzerZemu::Terminate()
 
   if(filetype==1)
 	 {
-	   myfile.open("/uscms_data/d3/nmucia2/dblcountfiles/SMA.txt");
+	   myfile.open("/uscms_data/d3/nmucia2/dblcountfiles/SMC.txt");
       string mySting = ss.str();
 
        myfile<< mySting;

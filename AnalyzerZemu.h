@@ -943,7 +943,9 @@ public :
   TH1D* h_InvMassnone;
   TH1D* h_MCinvmass;
 
-
+  TH1D* h_dptmm1;
+  TH1D* h_dptee1;
+  TH1D* h_dptem1;
 
   TH1D* h_numJets;
 

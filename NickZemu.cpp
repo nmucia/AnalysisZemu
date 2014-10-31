@@ -30,7 +30,7 @@ const int N_HIST = 475;
 
 //const char* FILE_NAME[N_MC] = {"w4v/electrons/DY.root","w4v/electrons/DY.root","w4v/electrons/ttbar.root","w4v/electrons/ZZ.root","w4v/electrons/WZ.root","w4v-/electrons/WW.root","w4v/electrons/WJets.root","w4v/electrons/combo.root"};
 
-const char* FILE_NAME[N_MC] = {"rootfiles/924test/MG.root","rootfiles/923m30q30/signal.root","rootfiles/924test/ttbar.root","rootfiles/924test/ZZ.root","rootfiles/924test/WZ.root","rootfiles/924test/WW.root","rootfiles/924test/WW.root","rootfiles/923m30q30/total.root", "rootfiles/924JRWm30q30/WW.root"};
+const char* FILE_NAME[N_MC] = {"rootfiles/1029/MG.root","rootfiles/1029/signal.root","rootfiles/1029/ttbar.root","rootfiles/1029/ZZ.root","rootfiles/1029/WZ.root","rootfiles/1029/WW.root","rootfiles/1029/WW.root","rootfiles/1029/C.root", "rootfiles/1029/WW.root"};
 
 //const char* FILE_NAME[N_MC] = {"rootfiles/923m30q20/MG.root","rootfiles/923m30q20/signal.root","rootfiles/923m30q20/ttbar.root","rootfiles/923m30q20/ZZ.root","rootfiles/923m30q20/WZ.root","rootfiles/923m30q20/WW.root","rootfiles/923m30q20/WW.root","rootfiles/923/total.root", "rootfiles/923m30q20/WW.root"};
 //const char* FILE_NAME[N_MC] = {"w4v/electrons/DY.root","w4v/electrons/DY.root","w4v/electrons/ttbar.root","w4v/electrons/ZZ.root","w4v/electrons/WZ.root","w4v-/electrons/WW.root","w4v/electrons/WJets.root","w4v/electrons/combo.root"};
@@ -204,11 +204,11 @@ void NickZemu::load_histograms()
       h[k][137] = (TH1D*)(file[k]->Get("h_extra_muons"));
       h[k][138] = (TH1D*)(file[k]->Get("h_extra_muons"));
       h[k][139] = (TH1D*)(file[k]->Get("h_extra_muons"));
-      h[k][140] = (TH1D*)(file[k]->Get("h_extra_muons"));
-      h[k][141] = (TH1D*)(file[k]->Get("h_extra_muons"));
-      h[k][142] = (TH1D*)(file[k]->Get("h_extra_muons"));
+      h[k][140] = (TH1D*)(file[k]->Get("h_dptmm1"));
+      h[k][141] = (TH1D*)(file[k]->Get("h_dptee1"));
+      h[k][142] = (TH1D*)(file[k]->Get("h_dptem1"));
       
-      h[k][143] = (TH1D*)(file[k]->Get("h_InvMassmminner"));
+      h[k][143] = (TH1D*)(file[k]->Get("h_ZpTem"));
       h[k][144] = (TH1D*)(file[k]->Get("h_InvMassmmouter"));
       h[k][145] = (TH1D*)(file[k]->Get("h_InvMasseeinner"));
       h[k][146] = (TH1D*)(file[k]->Get("h_InvMasseeouter"));
@@ -731,7 +731,7 @@ void NickZemu::n_one_plots()
   //CE = 7.055
   //PHMM=1.711
 cout<<h[7][194]->Integral()<<" , "<<h[0][194]->Integral()<<endl;
- double y=19.7;
+ double y=7.055;
 //        double y=0.87622;
 //double y=6.98;
   double x=y;
@@ -1179,8 +1179,11 @@ c78 = new TCanvas("inv mass peak ; ZpT>200","X; ZpT>0", 25, 25, 800, 600);
   dataComparisons(100,"METSignificanceEE", "");
   dataComparisons(184,"METSignificanceEM", "");
 
+ dataComparisons(143, "ZpTem", "Z_pT");
 
-  
+    dataComparisons(140,"dptMM", "");
+  dataComparisons(141,"dptEE", "");
+  dataComparisons(142,"dptEM", "");
 
 
  dataComparisons(217, "EEInvmass2", "");
@@ -1490,7 +1493,7 @@ cc_2->SetFillStyle(0);
    hs[hist_num]->Draw("hist");
    for(int i=0; i<9;i++)
      {
-       h[i][hist_num]->Rebin(2);
+       //       h[i][hist_num]->Rebin(2);
 h[i][hist_num]->SetLabelSize(0.0);
 h[i][hist_num]->GetXaxis()->SetTitleSize(0.00);
 h[i][hist_num]->GetYaxis()->SetLabelSize(0.06);
